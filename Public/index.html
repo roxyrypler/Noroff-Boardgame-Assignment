@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Free Web tutorials">
+    <meta name="keywords" content="HTML,CSS,JavaScript">
+    <meta name="author" content="Patrick Lie">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untitled Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js" ></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.js" ></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js" ></script>
+	<link rel="stylesheet" type="text/css" href="testCss.css" >
+	  
+  </head>
+
+  <body>
+    
+	  <button onclick="oneStep()" >1</button>
+	  <button onclick="threeSteps()" >3</button>
+	  <button onclick="sixSteps()" >6</button>
+	  <div class="playerState" >
+	  	<h1 id="playerState" >Press start to play.</h1>
+	  </div>
+	  <h2 id="wichplayerAmI" ></h2>
+	  <div id="dice" class="dice" ></div>
+
+	  <script src="js/board.js" ></script>
+  </body>
+
+</html>

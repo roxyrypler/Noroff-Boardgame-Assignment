@@ -1,0 +1,22 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  overflow-x: hidden;
+	overflow-y: hidden;
+}
+
+.dice {
+	width: 100px;
+	height: 100px;
+	background-color: black;
+	transform: translate(260px, 150px);
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	background-image: url(DiceFaces/Dice1.jpg);
+	background-position: center center;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
