@@ -65,7 +65,7 @@ let socket;
 
 /* --------------------------------------------------- */
 // Setups
-function setup() {
+function setup() { // p5js function
 	canvas = createCanvas(canvasW, canvasH);
 	let cx = (windowWidth - width) / 2;
 	let cy = (windowHeight - height) / 2;
@@ -134,7 +134,12 @@ function setup() {
 			  new Trap(playerTwoPath[4].x, playerTwoPath[4].y, 30, 30),
 			  new Trap(playerTwoPath[21].x, playerTwoPath[21].y, 30, 30)];
 
-	abilityChests = [new AbilityChest(playerOnePath[2].x, playerOnePath[2].y, 20, 20)];
+	abilityChests = [new AbilityChest(playerOnePath[6].x, playerOnePath[6].y, 20, 20),
+					 new AbilityChest(playerOnePath[15].x, playerOnePath[15].y, 20, 20),
+					 new AbilityChest(playerOnePath[26].x, playerOnePath[26].y, 20, 20),
+					 new AbilityChest(playerTwoPath[6].x, playerTwoPath[6].y, 20, 20),
+					 new AbilityChest(playerTwoPath[15].x, playerTwoPath[15].y, 20, 20),
+					 new AbilityChest(playerTwoPath[26].x, playerTwoPath[26].y, 20, 20)];
 	
 
 	playerOne = new PlayerOne(0, 0, 10, 10);
@@ -142,6 +147,96 @@ function setup() {
 
 	debugGrid();
 
+}
+
+function take3StepsBack(pathindex) {
+	
+	if (playerOneTurn == true) {
+		playerOne.x = playerOnePath[pathindex].x;
+		playerOne.y = playerOnePath[pathindex].y;
+		playerOneCount = playerOneCount - 3;
+	}else {
+		playerTwo.x = playerTwoPath[pathindex].x;
+		playerTwo.y = playerTwoPath[pathindex].y;
+		playerTwoCount = playerTwoCount - 3;
+	}
+	switchPlayer();
+}
+
+function abilityDecider() {
+	let rndNum = floor(random(1, 6));
+	
+	switch (rndNum) {
+		case 1:
+			console.log("1");
+			break;
+		case 2:
+			console.log("2");
+			break;
+		case 3:
+			console.log("3");
+			break;
+		case 4:
+			console.log("4");
+			break;
+		case 5:
+			console.log("5");
+			break;
+		case 6:
+			console.log("6");
+			break;
+		default:
+			console.log("something went wrong");
+			break;
+	}
+	switchPlayer();
+}
+
+function landedOnSOmething() {
+	
+	if (playerOneTurn == true) {
+		if (playerOne.x == playerOnePath[4].x && playerOne.y == playerOnePath[4].y) {
+			console.log("Hit a trap");
+			take3StepsBack(1);
+		}else if (playerOne.x == playerOnePath[21].x && playerOne.y == playerOnePath[21].y) {
+			console.log("Hit a trap");
+			take3StepsBack(18);
+		}else if (playerOne.x == playerOnePath[6].x && playerOne.y == playerOnePath[6].y) {
+			console.log("Hit a chest");
+			abilityDecider();
+		}else if (playerOne.x == playerOnePath[15].x && playerOne.y == playerOnePath[15].y) {
+			console.log("Hit a chest");
+			abilityDecider();
+		}else if (playerOne.x == playerOnePath[26].x && playerOne.y == playerOnePath[26].y) {
+			console.log("Hit a chset");
+			abilityDecider();
+		}else {
+			switchPlayer();
+			console.log("Hit nothing");
+		}
+	}else {
+		if (playerTwo.x == playerTwoPath[4].x && playerTwo.y == playerTwoPath[4].y) {
+			console.log("Hit a trap");
+			take3StepsBack(1);
+		}else if (playerTwo.x == playerTwoPath[21].x && playerTwo.y == playerTwoPath[21].y) {
+			console.log("Hit a trap");
+			take3StepsBack(18);
+		}else if (playerTwo.x == playerTwoPath[6].x && playerTwo.y == playerTwoPath[6].y) {
+			console.log("Hit a chest");
+			abilityDecider();
+		}else if (playerTwo.x == playerTwoPath[15].x && playerTwo.y == playerTwoPath[15].y) {
+			console.log("Hit a chest");
+			abilityDecider();
+		}else if (playerTwo.x == playerTwoPath[26].x && playerTwo.y == playerTwoPath[26].y) {
+			console.log("Hit a chset");
+			abilityDecider();
+		}else {
+			switchPlayer();
+			console.log("Hit nothing");
+		}
+	}
+	
+	//switchPlayer();
 }
 
 
@@ -231,7 +326,8 @@ function movePlayer() {
 					//console.log('Steps to take: ' + stepsToTake);
 					//console.log('PlayerCount: ' + playerOneCount);
 				} else {
-					switchPlayer();
+					//switchPlayer();
+					landedOnSOmething();
 				}
 			}
 		} catch (e) {
@@ -251,7 +347,8 @@ function movePlayer() {
 					//console.log('Steps to take: ' + PlayerTwoStepsToTake);
 					//console.log('PlayerCount: ' + playerTwoCount + '\n');
 				} else {
-					switchPlayer();
+					//switchPlayer();
+					landedOnSOmething();
 				}
 			}
 		} catch (e) {
@@ -265,8 +362,7 @@ function movePlayer() {
 /* setInterval(); clearInterval() */
 
 /* --------------------------------------------------- */
-// each frame
-function draw() {
+function draw() { // p5js function (runs each fram)
 	background(0);
 
 	for (let i = 0; i < tileArray.length; i++) {
