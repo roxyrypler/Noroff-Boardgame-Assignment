@@ -12,24 +12,23 @@ const server = app.listen(port);
 app.use(express.static('Public'));
 
 let io = socket(server);
+let nsp = io.of("/myServer");
+
+nsp.on("connection", room);
 
 io.sockets.on('connection', newConnection);
 
+
+function room(socket) {
+	console.log(socket.id);
+}
+
+
 function newConnection(socket) {
 	console.log('New connection: ' + socket.id);
-	
-	
+
+	/*
 	socket.on('diceFace', diceFace);
-	socket.on("gotStepsTotake", movePlayer);
-	socket.on("whoStarts", whoStartsOut);
-	
-	function whoStartsOut(data) {
-		socket.broadcast.emit("assignPlayerInn", data);
-	}
-	
-	function movePlayer(data) {
-		socket.broadcast.emit("movePlayerInn", data);
-	}
 	
 	function diceFace(data) {
 		//Broadcast to all clients excluding the sender
@@ -40,9 +39,10 @@ function newConnection(socket) {
 		
 		console.log(data.data);
 	}
-	
-	function whoGoesNext() {
-		// TO DO: Send to all who can throw the dice and not.
-		//Update movements and handle can throw the dace again.
-	}
+	*/
+
+
+
+
+
 }
