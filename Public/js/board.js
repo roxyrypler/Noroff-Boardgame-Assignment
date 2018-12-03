@@ -163,33 +163,80 @@ function take3StepsBack(pathindex) {
 	switchPlayer();
 }
 
-function abilityDecider() {
-	let rndNum = floor(random(1, 6));
+function abilityDecider(pathindex) {
+	let rndNum = floor(random(5, 6));
 	
 	switch (rndNum) {
 		case 1:
-			console.log("1");
+			console.log("Move 2 step forwords");
+			//Move 2 step forwords
+			if (playerOneTurn == true) {
+				playerOne.x = playerOnePath[pathindex + 2].x;
+				playerOne.y = playerOnePath[pathindex + 2].y;
+				playerOneCount = playerOneCount + 2;
+			}else {
+				playerTwo.x = playerTwoPath[pathindex + 2].x;
+				playerTwo.y = playerTwoPath[pathindex + 2].y;
+				playerTwoCount = playerTwoCount + 2;
+			}
 			break;
 		case 2:
-			console.log("2");
+			console.log("Take 2 step backwords");
+			// Take 2 step backwords
+			if (playerOneTurn == true) {
+				playerOne.x = playerOnePath[pathindex - 2].x;
+				playerOne.y = playerOnePath[pathindex - 2].y;
+				playerOneCount = playerOneCount - 3;
+			}else {
+				playerTwo.x = playerTwoPath[pathindex - 2].x;
+				playerTwo.y = playerTwoPath[pathindex - 2].y;
+				playerTwoCount = playerTwoCount - 2;
+			}
 			break;
 		case 3:
-			console.log("3");
+			console.log("Move 4 steps forwords");
+			// Move 4 steps forwords
+			if (playerOneTurn == true) {
+				playerOne.x = playerOnePath[pathindex + 4].x;
+				playerOne.y = playerOnePath[pathindex + 4].y;
+				playerOneCount = playerOneCount + 4;
+			}else {
+				playerTwo.x = playerTwoPath[pathindex + 4].x;
+				playerTwo.y = playerTwoPath[pathindex + 4].y;
+				playerTwoCount = playerTwoCount + 4;
+			}
 			break;
 		case 4:
-			console.log("4");
+			console.log("take 4 Steps backwords");
+			// take 4 Steps backwords
+			if (playerOneTurn == true) {
+				playerOne.x = playerOnePath[pathindex - 4].x;
+				playerOne.y = playerOnePath[pathindex - 4].y;
+				playerOneCount = playerOneCount - 4;
+			}else {
+				playerTwo.x = playerTwoPath[pathindex - 4].x;
+				playerTwo.y = playerTwoPath[pathindex - 4].y;
+				playerTwoCount = playerTwoCount - 4;
+			}
 			break;
 		case 5:
-			console.log("5");
-			break;
-		case 6:
-			console.log("6");
+			console.log("make oposing player take 5 staps back");
+			// make oposing player take 5 staps back
+			if (playerOneTurn == true) {
+				playerTwo.x = playerTwoPath[pathindex - 5].x;
+				playerTwo.y = playerTwoPath[pathindex - 5].y;
+				playerTwoCount = playerTwoCount - 5;
+			}else {
+				playerOne.x = playerOnePath[pathindex - 5].x;
+				playerOne.y = playerOnePath[pathindex - 5].y;
+				playerOneCount = playerOneCount - 5;
+			}
 			break;
 		default:
 			console.log("something went wrong");
 			break;
 	}
-	switchPlayer();
+	landedOnSOmething();
 }
 
 function landedOnSOmething() {
@@ -197,19 +244,20 @@ function landedOnSOmething() {
 	if (playerOneTurn == true) {
 		if (playerOne.x == playerOnePath[4].x && playerOne.y == playerOnePath[4].y) {
 			console.log("Hit a trap");
-			take3StepsBack(1);
+			//take3StepsBack(1);
+			switchPlayer();
 		}else if (playerOne.x == playerOnePath[21].x && playerOne.y == playerOnePath[21].y) {
 			console.log("Hit a trap");
 			take3StepsBack(18);
 		}else if (playerOne.x == playerOnePath[6].x && playerOne.y == playerOnePath[6].y) {
 			console.log("Hit a chest");
-			abilityDecider();
+			abilityDecider(6);
 		}else if (playerOne.x == playerOnePath[15].x && playerOne.y == playerOnePath[15].y) {
 			console.log("Hit a chest");
-			abilityDecider();
+			abilityDecider(15);
 		}else if (playerOne.x == playerOnePath[26].x && playerOne.y == playerOnePath[26].y) {
 			console.log("Hit a chset");
-			abilityDecider();
+			abilityDecider(26);
 		}else {
 			switchPlayer();
 			console.log("Hit nothing");
@@ -217,26 +265,25 @@ function landedOnSOmething() {
 	}else {
 		if (playerTwo.x == playerTwoPath[4].x && playerTwo.y == playerTwoPath[4].y) {
 			console.log("Hit a trap");
-			take3StepsBack(1);
+			//take3StepsBack(1);
+			switchPlayer();
 		}else if (playerTwo.x == playerTwoPath[21].x && playerTwo.y == playerTwoPath[21].y) {
 			console.log("Hit a trap");
 			take3StepsBack(18);
 		}else if (playerTwo.x == playerTwoPath[6].x && playerTwo.y == playerTwoPath[6].y) {
 			console.log("Hit a chest");
-			abilityDecider();
+			abilityDecider(6);
 		}else if (playerTwo.x == playerTwoPath[15].x && playerTwo.y == playerTwoPath[15].y) {
 			console.log("Hit a chest");
-			abilityDecider();
+			abilityDecider(15);
 		}else if (playerTwo.x == playerTwoPath[26].x && playerTwo.y == playerTwoPath[26].y) {
 			console.log("Hit a chset");
-			abilityDecider();
+			abilityDecider(26);
 		}else {
 			switchPlayer();
 			console.log("Hit nothing");
 		}
 	}
-	
-	//switchPlayer();
 }
 
 
@@ -267,7 +314,7 @@ function InitializeDiceRolling() {
 function rollTheDice() {
 	if (rollTime <= 50) {
 		rollTime += 1;
-		rndIndex = floor(random(1, 6));
+		rndIndex = floor(random(2, 3));
 		diceDiv.background = diceFaces[rndIndex];
 		diceDiv.backgroundPosition = ("center center");
 		diceDiv.backgroundRepeat = ("no-repeat");
@@ -387,7 +434,8 @@ function draw() { // p5js function (runs each fram)
 
 	playerOne.renderPlayer();
 	playerTwo.renderPlayer();
-
+	//console.log("Player One: " + playerOneTurn);
+	//console.log("Player Two: " + playerTwoTurn);
 
 }
 
