@@ -63,7 +63,17 @@ let abilityChests = [];
 // Socket
 let socket;
 
+// Graphics
+let img1;
+let img1X = 0;
+let img1Y = 0;
+
 /* --------------------------------------------------- */
+
+function preload() {
+	img1 = loadImage("DiceFaces/Dice1.jpg");
+}
+
 // Setups
 function setup() { // p5js function
 	canvas = createCanvas(canvasW, canvasH);
@@ -72,6 +82,7 @@ function setup() { // p5js function
 	canvas.position(cx, cy);
 	let pathConst = 60;
 	//socket = io.connect('http://localhost:3000');
+	
 
 	playerOnePath = [new WalkingPath(0, 0),
 					  new WalkingPath(pathConst, 0),
@@ -164,7 +175,7 @@ function take3StepsBack(pathindex) {
 }
 
 function abilityDecider(pathindex) {
-	let rndNum = floor(random(5, 6));
+	let rndNum = floor(random(1, 5));
 	
 	switch (rndNum) {
 		case 1:
@@ -186,7 +197,7 @@ function abilityDecider(pathindex) {
 			if (playerOneTurn == true) {
 				playerOne.x = playerOnePath[pathindex - 2].x;
 				playerOne.y = playerOnePath[pathindex - 2].y;
-				playerOneCount = playerOneCount - 3;
+				playerOneCount = playerOneCount - 2;
 			}else {
 				playerTwo.x = playerTwoPath[pathindex - 2].x;
 				playerTwo.y = playerTwoPath[pathindex - 2].y;
@@ -219,19 +230,6 @@ function abilityDecider(pathindex) {
 				playerTwoCount = playerTwoCount - 4;
 			}
 			break;
-		case 5:
-			console.log("make oposing player take 5 staps back");
-			// make oposing player take 5 staps back
-			if (playerOneTurn == true) {
-				playerTwo.x = playerTwoPath[pathindex - 5].x;
-				playerTwo.y = playerTwoPath[pathindex - 5].y;
-				playerTwoCount = playerTwoCount - 5;
-			}else {
-				playerOne.x = playerOnePath[pathindex - 5].x;
-				playerOne.y = playerOnePath[pathindex - 5].y;
-				playerOneCount = playerOneCount - 5;
-			}
-			break;
 		default:
 			console.log("something went wrong");
 			break;
@@ -244,8 +242,7 @@ function landedOnSOmething() {
 	if (playerOneTurn == true) {
 		if (playerOne.x == playerOnePath[4].x && playerOne.y == playerOnePath[4].y) {
 			console.log("Hit a trap");
-			//take3StepsBack(1);
-			switchPlayer();
+			take3StepsBack(1);
 		}else if (playerOne.x == playerOnePath[21].x && playerOne.y == playerOnePath[21].y) {
 			console.log("Hit a trap");
 			take3StepsBack(18);
@@ -259,14 +256,13 @@ function landedOnSOmething() {
 			console.log("Hit a chset");
 			abilityDecider(26);
 		}else {
-			switchPlayer();
 			console.log("Hit nothing");
+			switchPlayer();
 		}
 	}else {
 		if (playerTwo.x == playerTwoPath[4].x && playerTwo.y == playerTwoPath[4].y) {
 			console.log("Hit a trap");
-			//take3StepsBack(1);
-			switchPlayer();
+			take3StepsBack(1);
 		}else if (playerTwo.x == playerTwoPath[21].x && playerTwo.y == playerTwoPath[21].y) {
 			console.log("Hit a trap");
 			take3StepsBack(18);
@@ -280,8 +276,8 @@ function landedOnSOmething() {
 			console.log("Hit a chset");
 			abilityDecider(26);
 		}else {
-			switchPlayer();
 			console.log("Hit nothing");
+			switchPlayer();
 		}
 	}
 }
@@ -314,7 +310,7 @@ function InitializeDiceRolling() {
 function rollTheDice() {
 	if (rollTime <= 50) {
 		rollTime += 1;
-		rndIndex = floor(random(2, 3));
+		rndIndex = floor(random(6, 7));
 		diceDiv.background = diceFaces[rndIndex];
 		diceDiv.backgroundPosition = ("center center");
 		diceDiv.backgroundRepeat = ("no-repeat");
@@ -436,6 +432,11 @@ function draw() { // p5js function (runs each fram)
 	playerTwo.renderPlayer();
 	//console.log("Player One: " + playerOneTurn);
 	//console.log("Player Two: " + playerTwoTurn);
+	
+	img1X = lerp(img1X, playerTwo.x, 0.05);
+	img1Y = lerp(img1Y, playerTwo.y, 0.05);
+	
+	image(img1, img1X, img1Y, 50, 50);
 
 }
 
