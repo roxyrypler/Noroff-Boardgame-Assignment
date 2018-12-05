@@ -64,27 +64,38 @@ let abilityChests = [];
 let socket;
 
 // Graphics
-let img1;
-let img1X = 0;
-let img1Y = 0;
+//player One image
+let playerOneImg1;
+let playerOneImg1X = 0;
+let playerOneImg1Y = 0;
+
+//player Two Image
+let playerTwoImg1;
+let playerTwoImgX = 0;
+let playerTwoImgY = 0;
+
+//player selection
+
+
+
+//URL quaery
+let param;
 
 /* --------------------------------------------------- */
-
-function preload() {
-	img1 = loadImage("DiceFaces/Dice1.jpg");
-}
-
 // Setups
 function setup() { // p5js function
+	
 	canvas = createCanvas(canvasW, canvasH);
 	let cx = (windowWidth - width) / 2;
 	let cy = (windowHeight - height) / 2;
 	canvas.position(cx, cy);
-	let pathConst = 60;
-	//socket = io.connect('http://localhost:3000');
 	
-
-	playerOnePath = [new WalkingPath(0, 0),
+	param = getURLParams();
+	console.log(param.playerOne);
+	
+/*----------------------------------------------------------------------------------------*/
+	let pathConst = 60;
+	playerOnePath = [ new WalkingPath(0, 0),
 					  new WalkingPath(pathConst, 0),
 					  new WalkingPath(pathConst * 2, 0),
 					  new WalkingPath(pathConst * 3, 0),
@@ -112,7 +123,7 @@ function setup() { // p5js function
 					  new WalkingPath(pathConst * 2, pathConst * 5),
 					  new WalkingPath(pathConst * 3, pathConst * 5)];
 
-	playerTwoPath = [new WalkingPath(pathConst * 9, pathConst * 10),
+	playerTwoPath = [ new WalkingPath(pathConst * 9, pathConst * 10),
 					  new WalkingPath(pathConst * 8, pathConst * 10),
 					  new WalkingPath(pathConst * 7, pathConst * 10),
 					  new WalkingPath(pathConst * 6, pathConst * 10),
@@ -139,23 +150,27 @@ function setup() { // p5js function
 					  new WalkingPath(pathConst * 8, pathConst * 5),
 					  new WalkingPath(pathConst * 7, pathConst * 5),
 					  new WalkingPath(pathConst * 6, pathConst * 5)];
+/*----------------------------------------------------------------------------------------*/
+	traps = [         new Trap(playerOnePath[4].x, playerOnePath[4].y, 30, 30),
+			          new Trap(playerOnePath[21].x, playerOnePath[21].y, 30, 30),
+			          new Trap(playerTwoPath[4].x, playerTwoPath[4].y, 30, 30),
+			          new Trap(playerTwoPath[21].x, playerTwoPath[21].y, 30, 30)];
 
-	traps = [new Trap(playerOnePath[4].x, playerOnePath[4].y, 30, 30),
-			  new Trap(playerOnePath[21].x, playerOnePath[21].y, 30, 30),
-			  new Trap(playerTwoPath[4].x, playerTwoPath[4].y, 30, 30),
-			  new Trap(playerTwoPath[21].x, playerTwoPath[21].y, 30, 30)];
-
-	abilityChests = [new AbilityChest(playerOnePath[6].x, playerOnePath[6].y, 20, 20),
-					 new AbilityChest(playerOnePath[15].x, playerOnePath[15].y, 20, 20),
-					 new AbilityChest(playerOnePath[26].x, playerOnePath[26].y, 20, 20),
-					 new AbilityChest(playerTwoPath[6].x, playerTwoPath[6].y, 20, 20),
-					 new AbilityChest(playerTwoPath[15].x, playerTwoPath[15].y, 20, 20),
-					 new AbilityChest(playerTwoPath[26].x, playerTwoPath[26].y, 20, 20)];
+	abilityChests = [ new AbilityChest(playerOnePath[6].x, playerOnePath[6].y, 20, 20),
+					  new AbilityChest(playerOnePath[15].x, playerOnePath[15].y, 20, 20),
+					  new AbilityChest(playerOnePath[26].x, playerOnePath[26].y, 20, 20),
+					  new AbilityChest(playerTwoPath[6].x, playerTwoPath[6].y, 20, 20),
+					  new AbilityChest(playerTwoPath[15].x, playerTwoPath[15].y, 20, 20),
+					  new AbilityChest(playerTwoPath[26].x, playerTwoPath[26].y, 20, 20)];
 	
-
+/*----------------------------------------------------------------------------------------*/
 	playerOne = new PlayerOne(0, 0, 10, 10);
 	playerTwo = new PlayerTwo(pathConst * 9, pathConst * 10, 10, 10);
-
+	
+	playerOne.setup();
+	playerTwo.setup();
+	
+/*----------------------------------------------------------------------------------------*/
 	debugGrid();
 
 }
@@ -433,10 +448,9 @@ function draw() { // p5js function (runs each fram)
 	//console.log("Player One: " + playerOneTurn);
 	//console.log("Player Two: " + playerTwoTurn);
 	
-	img1X = lerp(img1X, playerTwo.x, 0.05);
-	img1Y = lerp(img1Y, playerTwo.y, 0.05);
 	
-	image(img1, img1X, img1Y, 50, 50);
+	
+	
 
 }
 
@@ -505,11 +519,22 @@ class PlayerOne {
 		this.height = height;
 		this.count = 0;
 	}
+	
+	setup() {
+		if (param.playerOne == 1) {
+			playerOneImg1 = loadImage("DiceFaces/Dice1.jpg");
+		}else if (param.playerOne == 2) {
+			playerOneImg1 = loadImage("DiceFaces/Dice2.jpg");
+		}
+	}
 
 	renderPlayer() {
 		noStroke();
 		fill(green);
 		rect(this.x, this.y, this.width, this.height);
+		playerOneImg1X = lerp(playerOneImg1X, playerTwo.x, 0.05);
+		playerOneImg1Y = lerp(playerOneImg1Y, playerTwo.y, 0.05);
+		image(playerOneImg1, playerOneImg1X, playerOneImg1Y, 50, 50);
 	}
 }
 
@@ -520,11 +545,22 @@ class PlayerTwo {
 		this.width = width;
 		this.height = height;
 	}
+	
+	setup() {
+		if (param.playerTwo == 1) {
+			playerTwoImg1 = loadImage("DiceFaces/Dice1.jpg");
+		}else if (param.playerTwo == 2) {
+			playerTwoImg1 = loadImage("DiceFaces/Dice2.jpg");
+		}
+	}
 
 	renderPlayer() {
 		noStroke();
 		fill(blue);
 		rect(this.x, this.y, this.width, this.height);
+		playerTwoImgX = lerp(playerTwoImgX, playerOne.x, 0.05);
+		playerTwoImgY = lerp(playerTwoImgY, playerOne.y, 0.05);
+		image(playerTwoImg1, playerTwoImgX, playerTwoImgY, 50, 50);
 	}
 }
 
