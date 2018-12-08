@@ -43,3 +43,6 @@ function gotCharData(data) {
 	}
 }
 /* --------------------------------------------------- */
+
+//adding 10 chars for the player
+
