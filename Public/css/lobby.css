@@ -1,0 +1,23 @@
+/* Watch Command */
+/* stylus -w style.styl -o style.css */
+.mainWrapper {
+  background-color: #000;
+  width: 70%;
+  height: 700px;
+  margin: auto;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: row;
+}
+.mainWrapper__leftSideLoader {
+  background-color: #008000;
+  width: 50%;
+  height: 100%;
+  overflow-y: true;
+}
+.mainWrapper__rightSideLoader {
+  background-color: #ff0;
+  width: 50%;
+  height: 100%;
+  overflow-y: true;
+}
