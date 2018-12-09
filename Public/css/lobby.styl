@@ -1,5 +1,7 @@
 /* Watch Command */
-/* stylus -w style.styl -o style.css */ 
+/* stylus -w lobby.styl -o lobby.css */ 
+
+
 
 
 .mainWrapper
@@ -14,10 +16,28 @@
 		background-color green
 		width 50%
 		height 100%
-		overflow-y true
+		overflow-y scroll
 	&__rightSideLoader
 		background-color yellow
 		width 50%
 		height 100%
-		overflow-y true
-		
+		overflow-y scroll
+
+.bg
+	background-color black
+	color white
+	& img
+		width 100%
+		height 60%
+	
+.infoAndButton
+	width 100%
+	height 40%
+	background-color green
+	& button
+		position absolute
+		right 10px
+		top 60%
+		width 60px
+		height 40%
+	

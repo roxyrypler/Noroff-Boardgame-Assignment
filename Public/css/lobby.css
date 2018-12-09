@@ -1,5 +1,5 @@
 /* Watch Command */
-/* stylus -w style.styl -o style.css */
+/* stylus -w lobby.styl -o lobby.css */
 .mainWrapper {
   background-color: #000;
   width: 70%;
@@ -13,11 +13,31 @@
   background-color: #008000;
   width: 50%;
   height: 100%;
-  overflow-y: true;
+  overflow-y: scroll;
 }
 .mainWrapper__rightSideLoader {
   background-color: #ff0;
   width: 50%;
   height: 100%;
-  overflow-y: true;
+  overflow-y: scroll;
+}
+.bg {
+  background-color: #000;
+  color: #fff;
+}
+.bg img {
+  width: 100%;
+  height: 60%;
+}
+.infoAndButton {
+  width: 100%;
+  height: 40%;
+  background-color: #008000;
+}
+.infoAndButton button {
+  position: absolute;
+  right: 10px;
+  top: 60%;
+  width: 60px;
+  height: 40%;
 }
