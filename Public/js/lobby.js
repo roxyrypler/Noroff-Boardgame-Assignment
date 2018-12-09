@@ -13,8 +13,12 @@ let charnames = ["Tyrion Lannister",
 				"Tywin Lannister",
 				"Joffrey Baratheon"];
 
+//CharSelect
+let playerOneSelect = 0;
+let playerTwoSelect = 0;
+
 /* --------------------------------------------------- */
-allBooks();
+//allBooks();
 
 //got main data
 function allBooks() {
@@ -79,6 +83,84 @@ function settingNames() {
 			}
 		}	
 	}
+}
+
+function playerOneSelecter(num) {
+	switch (num) {
+		case 1:
+			// Set indicator for wich one is selected
+			break;
+		case 2:
+			// Set indicator for wich one is selected
+			break;
+		case 3:
+			// Set indicator for wich one is selected
+			break;
+		case 4:
+			// Set indicator for wich one is selected
+			break;
+		case 5:
+			// Set indicator for wich one is selected
+			break;
+		case 6:
+			// Set indicator for wich one is selected
+			break;
+		case 7:
+			// Set indicator for wich one is selected
+			break;
+		case 8:
+			// Set indicator for wich one is selected
+			break;
+		case 9:
+			// Set indicator for wich one is selected
+			break;
+		case 10:
+			// Set indicator for wich one is selected
+			break;
+	}
+	playerOneSelect = num;
+	console.log(playerOneSelect);
+}
+
+function playerTwoSelecter(num) {
+	switch (num) {
+		case 1:
+			// Set indicator for wich one is selected
+			break;
+		case 2:
+			// Set indicator for wich one is selected
+			break;
+		case 3:
+			// Set indicator for wich one is selected
+			break;
+		case 4:
+			// Set indicator for wich one is selected
+			break;
+		case 5:
+			// Set indicator for wich one is selected
+			break;
+		case 6:
+			// Set indicator for wich one is selected
+			break;
+		case 7:
+			// Set indicator for wich one is selected
+			break;
+		case 8:
+			// Set indicator for wich one is selected
+			break;
+		case 9:
+			// Set indicator for wich one is selected
+			break;
+		case 10:
+			// Set indicator for wich one is selected
+			break;
+	}
+	playerTwoSelect = num;
+	console.log(playerTwoSelect);
+}
+
+function startGame() {
+	//Get playerSelectOne and playerSelectTwo and pass over to URL and open that url.
 }
 
 
