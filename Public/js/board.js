@@ -74,7 +74,8 @@ let playerTwoImg1;
 let playerTwoImgX = 0;
 let playerTwoImgY = 0;
 
-//player selection
+//Level BG
+let levelBG;
 
 
 
@@ -92,6 +93,7 @@ function setup() { // p5js function
 	
 	param = getURLParams();
 	console.log(param.playerOne);
+	console.log(param.playerTwo);
 	
 /*----------------------------------------------------------------------------------------*/
 	let pathConst = 60;
@@ -164,6 +166,9 @@ function setup() { // p5js function
 					  new AbilityChest(playerTwoPath[26].x, playerTwoPath[26].y, 20, 20)];
 	
 /*----------------------------------------------------------------------------------------*/
+	levelBG = loadImage("imgs/GameAssets/Level/Level.jpg");
+	
+	
 	playerOne = new PlayerOne(0, 0, 10, 10);
 	playerTwo = new PlayerTwo(pathConst * 9, pathConst * 10, 10, 10);
 	
@@ -422,6 +427,8 @@ function movePlayer() {
 /* --------------------------------------------------- */
 function draw() { // p5js function (runs each fram)
 	background(0);
+	
+	
 
 	for (let i = 0; i < tileArray.length; i++) {
 		tileArray[i].renderCube();
@@ -442,6 +449,8 @@ function draw() { // p5js function (runs each fram)
 	for (let i = 0; i < abilityChests.length; i++) {
 		abilityChests[i].renderChest();
 	}
+	
+	image(levelBG, 0, 0, canvasW, canvasH);
 
 	playerOne.renderPlayer();
 	playerTwo.renderPlayer();
@@ -522,19 +531,35 @@ class PlayerOne {
 	
 	setup() {
 		if (param.playerOne == 1) {
-			playerOneImg1 = loadImage("DiceFaces/Dice1.jpg");
+			playerOneImg1 = loadImage("imgs/GameAssets/Tokens/Tyrion_Lannister_Token.png");
 		}else if (param.playerOne == 2) {
-			playerOneImg1 = loadImage("DiceFaces/Dice2.jpg");
+			playerOneImg1 = loadImage("imgs/GameAssets/Tokens/Daenerys_Targaryen_Token.png");
+		}else if ( param.playerOne == 3) {
+			playerOneImg1 = loadImage("imgs/GameAssets/Tokens/Cersei_Lannister_Token.png");
+		}else if ( param.playerOne == 4) {
+			playerOneImg1 = loadImage("imgs/GameAssets/Tokens/Jon_Snow_Token.png");
+		}else if ( param.playerOne == 5) {
+			playerOneImg1 = loadImage("imgs/GameAssets/Tokens/Sansa_Start_Token.png");
+		}else if ( param.playerOne == 6) {
+			playerOneImg1 = loadImage("imgs/GameAssets/Tokens/Ramsay_Snow_Token.png");
+		}else if ( param.playerOne == 7) {
+			playerOneImg1 = loadImage("imgs/GameAssets/Tokens/Eddard_Start_Token.png");
+		}else if ( param.playerOne == 8) {
+			playerOneImg1 = loadImage("imgs/GameAssets/Tokens/Cersei_Lannister_Token.png");
+		}else if ( param.playerOne == 9) {
+			playerOneImg1 = loadImage("imgs/GameAssets/Tokens/Tyrwin_Lannister_Token.png");
+		}else if ( param.playerOne == 10) {
+			playerOneImg1 = loadImage("imgs/GameAssets/Tokens/Joffrey_Baratheon_Token.png");
 		}
 	}
 
 	renderPlayer() {
-		noStroke();
+		/*noStroke();
 		fill(green);
-		rect(this.x, this.y, this.width, this.height);
+		rect(this.x, this.y, this.width, this.height);*/
 		playerOneImg1X = lerp(playerOneImg1X, playerTwo.x, 0.05);
 		playerOneImg1Y = lerp(playerOneImg1Y, playerTwo.y, 0.05);
-		image(playerOneImg1, playerOneImg1X, playerOneImg1Y, 50, 50);
+		image(playerOneImg1, playerOneImg1X, playerOneImg1Y, 50, 60);
 	}
 }
 
@@ -548,19 +573,35 @@ class PlayerTwo {
 	
 	setup() {
 		if (param.playerTwo == 1) {
-			playerTwoImg1 = loadImage("DiceFaces/Dice1.jpg");
+			playerTwoImg1 = loadImage("imgs/GameAssets/Tokens/Tyrion_Lannister_Token.png");
 		}else if (param.playerTwo == 2) {
-			playerTwoImg1 = loadImage("DiceFaces/Dice2.jpg");
+			playerTwoImg1 = loadImage("imgs/GameAssets/Tokens/Daenerys_Targaryen_Token.png");
+		}else if ( param.playerTwo == 3) {
+			playerTwoImg1 = loadImage("imgs/GameAssets/Tokens/Cersei_Lannister_Token.png");
+		}else if ( param.playerTwo == 4) {
+			playerTwoImg1 = loadImage("imgs/GameAssets/Tokens/Jon_Snow_Token.png");
+		}else if ( param.playerTwo == 5) {
+			playerTwoImg1 = loadImage("imgs/GameAssets/Tokens/Sansa_Start_Token.png");
+		}else if ( param.playerTwo == 6) {
+			playerTwoImg1 = loadImage("imgs/GameAssets/Tokens/Ramsay_Snow_Token.png");
+		}else if ( param.playerTwo == 7) {
+			playerTwoImg1 = loadImage("imgs/GameAssets/Tokens/Eddard_Start_Token.png");
+		}else if ( param.playerTwo == 8) {
+			playerTwoImg1 = loadImage("imgs/GameAssets/Tokens/Cersei_Lannister_Token.png");
+		}else if ( param.playerTwo == 9) {
+			playerTwoImg1 = loadImage("imgs/GameAssets/Tokens/Tyrwin_Lannister_Token.png");
+		}else if ( param.playerTwo == 10) {
+			playerTwoImg1 = loadImage("imgs/GameAssets/Tokens/Joffrey_Baratheon_Token.png");
 		}
 	}
 
 	renderPlayer() {
-		noStroke();
+		/*noStroke();
 		fill(blue);
-		rect(this.x, this.y, this.width, this.height);
+		rect(this.x, this.y, this.width, this.height);*/
 		playerTwoImgX = lerp(playerTwoImgX, playerOne.x, 0.05);
 		playerTwoImgY = lerp(playerTwoImgY, playerOne.y, 0.05);
-		image(playerTwoImg1, playerTwoImgX, playerTwoImgY, 50, 50);
+		image(playerTwoImg1, playerTwoImgX, playerTwoImgY, 50, 60);
 	}
 }
 
