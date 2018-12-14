@@ -87,7 +87,7 @@ let param;
 function setup() { // p5js function
 	
 	canvas = createCanvas(canvasW, canvasH);
-	let cx = (windowWidth - width) / 2;
+	let cx = ((windowWidth - width) / 2) + 200;
 	let cy = (windowHeight - height) / 2;
 	canvas.position(cx, cy);
 	
@@ -176,8 +176,29 @@ function setup() { // p5js function
 	playerTwo.setup();
 	
 /*----------------------------------------------------------------------------------------*/
-	debugGrid();
+	wichPlayersTurn();
+	//debugGrid();
 
+}
+
+function createActionDisplayer(player, action) {
+	let activity = document.getElementById("activity");
+	
+	let wichPlayer = document.createElement("h2");
+	wichPlayer.className = "player";
+	let actTxt = document.createTextNode(player);
+	wichPlayer.appendChild(actTxt);
+	activity.appendChild(wichPlayer);
+	
+	let actions = document.createElement("p");
+	actions.className = "actions";
+	let actionsTxt = document.createTextNode(action);
+	actions.appendChild(actionsTxt);
+	activity.appendChild(actions);
+	
+	let separator = document.createElement("div");
+	separator.className = "separator";
+	activity.appendChild(separator);
 }
 
 function take3StepsBack(pathindex) {
@@ -205,10 +226,12 @@ function abilityDecider(pathindex) {
 				playerOne.x = playerOnePath[pathindex + 2].x;
 				playerOne.y = playerOnePath[pathindex + 2].y;
 				playerOneCount = playerOneCount + 2;
+				createActionDisplayer("Player 1", "Move 2 steps forword");
 			}else {
 				playerTwo.x = playerTwoPath[pathindex + 2].x;
 				playerTwo.y = playerTwoPath[pathindex + 2].y;
 				playerTwoCount = playerTwoCount + 2;
+				createActionDisplayer("Player 2", "Move 2 steps forword");
 			}
 			break;
 		case 2:
@@ -218,10 +241,12 @@ function abilityDecider(pathindex) {
 				playerOne.x = playerOnePath[pathindex - 2].x;
 				playerOne.y = playerOnePath[pathindex - 2].y;
 				playerOneCount = playerOneCount - 2;
+				createActionDisplayer("Player 1", "Move 2 steps backwords");
 			}else {
 				playerTwo.x = playerTwoPath[pathindex - 2].x;
 				playerTwo.y = playerTwoPath[pathindex - 2].y;
 				playerTwoCount = playerTwoCount - 2;
+				createActionDisplayer("Player 2", "Move 2 steps backwords");
 			}
 			break;
 		case 3:
@@ -231,10 +256,12 @@ function abilityDecider(pathindex) {
 				playerOne.x = playerOnePath[pathindex + 4].x;
 				playerOne.y = playerOnePath[pathindex + 4].y;
 				playerOneCount = playerOneCount + 4;
+				createActionDisplayer("Player 1", "Move 4 steps forword");
 			}else {
 				playerTwo.x = playerTwoPath[pathindex + 4].x;
 				playerTwo.y = playerTwoPath[pathindex + 4].y;
 				playerTwoCount = playerTwoCount + 4;
+				createActionDisplayer("Player 2", "Move 4 steps forword");
 			}
 			break;
 		case 4:
@@ -244,10 +271,12 @@ function abilityDecider(pathindex) {
 				playerOne.x = playerOnePath[pathindex - 4].x;
 				playerOne.y = playerOnePath[pathindex - 4].y;
 				playerOneCount = playerOneCount - 4;
+				createActionDisplayer("Player 2", "Move 4 steps backwords");
 			}else {
 				playerTwo.x = playerTwoPath[pathindex - 4].x;
 				playerTwo.y = playerTwoPath[pathindex - 4].y;
 				playerTwoCount = playerTwoCount - 4;
+				createActionDisplayer("Player 2", "Move 4 steps backwords");
 			}
 			break;
 		default:
@@ -262,18 +291,23 @@ function landedOnSOmething() {
 	if (playerOneTurn == true) {
 		if (playerOne.x == playerOnePath[4].x && playerOne.y == playerOnePath[4].y) {
 			console.log("Hit a trap");
+			createActionDisplayer("Player 1", "Hit a trap, move 2 steps back");
 			take3StepsBack(1);
 		}else if (playerOne.x == playerOnePath[21].x && playerOne.y == playerOnePath[21].y) {
 			console.log("Hit a trap");
+			createActionDisplayer("Player 1", "Hit a trap, move 2 steps back");
 			take3StepsBack(18);
 		}else if (playerOne.x == playerOnePath[6].x && playerOne.y == playerOnePath[6].y) {
 			console.log("Hit a chest");
+			createActionDisplayer("Player 1", "Hit a chest");
 			abilityDecider(6);
 		}else if (playerOne.x == playerOnePath[15].x && playerOne.y == playerOnePath[15].y) {
 			console.log("Hit a chest");
+			createActionDisplayer("Player 1", "Hit a chest");
 			abilityDecider(15);
 		}else if (playerOne.x == playerOnePath[26].x && playerOne.y == playerOnePath[26].y) {
 			console.log("Hit a chset");
+			createActionDisplayer("Player 1", "Hit a chest");
 			abilityDecider(26);
 		}else {
 			console.log("Hit nothing");
@@ -282,18 +316,23 @@ function landedOnSOmething() {
 	}else {
 		if (playerTwo.x == playerTwoPath[4].x && playerTwo.y == playerTwoPath[4].y) {
 			console.log("Hit a trap");
+			createActionDisplayer("Player 2", "Hit a trap, move 2 steps back");
 			take3StepsBack(1);
 		}else if (playerTwo.x == playerTwoPath[21].x && playerTwo.y == playerTwoPath[21].y) {
 			console.log("Hit a trap");
+			createActionDisplayer("Player 2", "Hit a trap, move 2 steps back");
 			take3StepsBack(18);
 		}else if (playerTwo.x == playerTwoPath[6].x && playerTwo.y == playerTwoPath[6].y) {
 			console.log("Hit a chest");
+			createActionDisplayer("Player 2", "Hit a chest");
 			abilityDecider(6);
 		}else if (playerTwo.x == playerTwoPath[15].x && playerTwo.y == playerTwoPath[15].y) {
 			console.log("Hit a chest");
+			createActionDisplayer("Player 2", "Hit a chest");
 			abilityDecider(15);
 		}else if (playerTwo.x == playerTwoPath[26].x && playerTwo.y == playerTwoPath[26].y) {
 			console.log("Hit a chset");
+			createActionDisplayer("Player 2", "Hit a chest");
 			abilityDecider(26);
 		}else {
 			console.log("Hit nothing");
@@ -475,7 +514,7 @@ function windowResized() {
 // Systems
 
 function centeringCanvas() {
-	let cx = (windowWidth - width) / 2;
+	let cx = ((windowWidth - width) / 2) + 200;
 	let cy = (windowHeight - height) / 2;
 	canvas.position(cx, cy);
 }

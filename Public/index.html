@@ -8,22 +8,24 @@
 	<meta name="author" content="Patrick Lie">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Bridge - GameBoard</title>
+	<link href="css/board.css" rel="stylesheet" >
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
-	<link rel="stylesheet" type="text/css" href="testCss.css">
 
 </head>
 
 <body>
 
-	<button onclick="oneStep()">Roll The Dice</button>
+	<button onclick="oneStep()" class="rollDice" >Roll The Dice</button>
 	<button onclick="threeSteps()">Choose Who Goes First</button>
 	<div class="playerState">
-		<h1 id="playerState">Press start to play.</h1>
+		<h1 id="playerState" class="playerState" >dfhdfhrgh</h1>
 	</div>
 	<h2 id="wichplayerAmI"></h2>
 	<div id="dice" class="dice"></div>
+	<div class="activityHolder" id="activity" >
+	</div>
 
 	<script src="js/board.js"></script>
 </body>
