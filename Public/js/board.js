@@ -54,6 +54,8 @@ let playerTwoTurn = false;
 let playerTurnDescriptin = document.getElementById('playerState');
 let wichPlayerAmI = document.getElementById("wichplayerAmI");
 let playerStartDecider;
+let playerOneGot6 = false;
+let playerTwoGot6 = false;
 
 //Trap
 let traps = [];
@@ -85,19 +87,19 @@ let param;
 /* --------------------------------------------------- */
 // Setups
 function setup() { // p5js function
-	
+
 	canvas = createCanvas(canvasW, canvasH);
 	let cx = ((windowWidth - width) / 2) + 200;
 	let cy = (windowHeight - height) / 2;
 	canvas.position(cx, cy);
-	
+
 	param = getURLParams();
 	console.log(param.playerOne);
 	console.log(param.playerTwo);
-	
-/*----------------------------------------------------------------------------------------*/
+
+	/*----------------------------------------------------------------------------------------*/
 	let pathConst = 60;
-	playerOnePath = [ new WalkingPath(0, 0),
+	playerOnePath = [new WalkingPath(0, 0),
 					  new WalkingPath(pathConst, 0),
 					  new WalkingPath(pathConst * 2, 0),
 					  new WalkingPath(pathConst * 3, 0),
@@ -125,7 +127,7 @@ function setup() { // p5js function
 					  new WalkingPath(pathConst * 2, pathConst * 5),
 					  new WalkingPath(pathConst * 3, pathConst * 5)];
 
-	playerTwoPath = [ new WalkingPath(pathConst * 9, pathConst * 10),
+	playerTwoPath = [new WalkingPath(pathConst * 9, pathConst * 10),
 					  new WalkingPath(pathConst * 8, pathConst * 10),
 					  new WalkingPath(pathConst * 7, pathConst * 10),
 					  new WalkingPath(pathConst * 6, pathConst * 10),
@@ -152,30 +154,30 @@ function setup() { // p5js function
 					  new WalkingPath(pathConst * 8, pathConst * 5),
 					  new WalkingPath(pathConst * 7, pathConst * 5),
 					  new WalkingPath(pathConst * 6, pathConst * 5)];
-/*----------------------------------------------------------------------------------------*/
-	traps = [         new Trap(playerOnePath[4].x, playerOnePath[4].y, 30, 30),
+	/*----------------------------------------------------------------------------------------*/
+	traps = [new Trap(playerOnePath[4].x, playerOnePath[4].y, 30, 30),
 			          new Trap(playerOnePath[21].x, playerOnePath[21].y, 30, 30),
 			          new Trap(playerTwoPath[4].x, playerTwoPath[4].y, 30, 30),
 			          new Trap(playerTwoPath[21].x, playerTwoPath[21].y, 30, 30)];
 
-	abilityChests = [ new AbilityChest(playerOnePath[6].x, playerOnePath[6].y, 20, 20),
+	abilityChests = [new AbilityChest(playerOnePath[6].x, playerOnePath[6].y, 20, 20),
 					  new AbilityChest(playerOnePath[15].x, playerOnePath[15].y, 20, 20),
 					  new AbilityChest(playerOnePath[26].x, playerOnePath[26].y, 20, 20),
 					  new AbilityChest(playerTwoPath[6].x, playerTwoPath[6].y, 20, 20),
 					  new AbilityChest(playerTwoPath[15].x, playerTwoPath[15].y, 20, 20),
 					  new AbilityChest(playerTwoPath[26].x, playerTwoPath[26].y, 20, 20)];
-	
-/*----------------------------------------------------------------------------------------*/
+
+	/*----------------------------------------------------------------------------------------*/
 	levelBG = loadImage("imgs/GameAssets/Level/Level.jpg");
-	
-	
+
+
 	playerOne = new PlayerOne(0, 0, 10, 10);
 	playerTwo = new PlayerTwo(pathConst * 9, pathConst * 10, 10, 10);
-	
+
 	playerOne.setup();
 	playerTwo.setup();
-	
-/*----------------------------------------------------------------------------------------*/
+
+	/*----------------------------------------------------------------------------------------*/
 	wichPlayersTurn();
 	//debugGrid();
 
@@ -183,31 +185,31 @@ function setup() { // p5js function
 
 function createActionDisplayer(player, action) {
 	let activity = document.getElementById("activity");
-	
+
 	let wichPlayer = document.createElement("h2");
 	wichPlayer.className = "player";
 	let actTxt = document.createTextNode(player);
 	wichPlayer.appendChild(actTxt);
 	activity.appendChild(wichPlayer);
-	
+
 	let actions = document.createElement("p");
 	actions.className = "actions";
 	let actionsTxt = document.createTextNode(action);
 	actions.appendChild(actionsTxt);
 	activity.appendChild(actions);
-	
+
 	let separator = document.createElement("div");
 	separator.className = "separator";
 	activity.appendChild(separator);
 }
 
 function take3StepsBack(pathindex) {
-	
+
 	if (playerOneTurn == true) {
 		playerOne.x = playerOnePath[pathindex].x;
 		playerOne.y = playerOnePath[pathindex].y;
 		playerOneCount = playerOneCount - 3;
-	}else {
+	} else {
 		playerTwo.x = playerTwoPath[pathindex].x;
 		playerTwo.y = playerTwoPath[pathindex].y;
 		playerTwoCount = playerTwoCount - 3;
@@ -217,7 +219,7 @@ function take3StepsBack(pathindex) {
 
 function abilityDecider(pathindex) {
 	let rndNum = floor(random(1, 5));
-	
+
 	switch (rndNum) {
 		case 1:
 			console.log("Move 2 step forwords");
@@ -227,7 +229,7 @@ function abilityDecider(pathindex) {
 				playerOne.y = playerOnePath[pathindex + 2].y;
 				playerOneCount = playerOneCount + 2;
 				createActionDisplayer("Player 1", "Move 2 steps forword");
-			}else {
+			} else {
 				playerTwo.x = playerTwoPath[pathindex + 2].x;
 				playerTwo.y = playerTwoPath[pathindex + 2].y;
 				playerTwoCount = playerTwoCount + 2;
@@ -242,7 +244,7 @@ function abilityDecider(pathindex) {
 				playerOne.y = playerOnePath[pathindex - 2].y;
 				playerOneCount = playerOneCount - 2;
 				createActionDisplayer("Player 1", "Move 2 steps backwords");
-			}else {
+			} else {
 				playerTwo.x = playerTwoPath[pathindex - 2].x;
 				playerTwo.y = playerTwoPath[pathindex - 2].y;
 				playerTwoCount = playerTwoCount - 2;
@@ -257,7 +259,7 @@ function abilityDecider(pathindex) {
 				playerOne.y = playerOnePath[pathindex + 4].y;
 				playerOneCount = playerOneCount + 4;
 				createActionDisplayer("Player 1", "Move 4 steps forword");
-			}else {
+			} else {
 				playerTwo.x = playerTwoPath[pathindex + 4].x;
 				playerTwo.y = playerTwoPath[pathindex + 4].y;
 				playerTwoCount = playerTwoCount + 4;
@@ -272,7 +274,7 @@ function abilityDecider(pathindex) {
 				playerOne.y = playerOnePath[pathindex - 4].y;
 				playerOneCount = playerOneCount - 4;
 				createActionDisplayer("Player 2", "Move 4 steps backwords");
-			}else {
+			} else {
 				playerTwo.x = playerTwoPath[pathindex - 4].x;
 				playerTwo.y = playerTwoPath[pathindex - 4].y;
 				playerTwoCount = playerTwoCount - 4;
@@ -287,54 +289,54 @@ function abilityDecider(pathindex) {
 }
 
 function landedOnSOmething() {
-	
+
 	if (playerOneTurn == true) {
 		if (playerOne.x == playerOnePath[4].x && playerOne.y == playerOnePath[4].y) {
 			console.log("Hit a trap");
 			createActionDisplayer("Player 1", "Hit a trap, move 2 steps back");
 			take3StepsBack(1);
-		}else if (playerOne.x == playerOnePath[21].x && playerOne.y == playerOnePath[21].y) {
+		} else if (playerOne.x == playerOnePath[21].x && playerOne.y == playerOnePath[21].y) {
 			console.log("Hit a trap");
 			createActionDisplayer("Player 1", "Hit a trap, move 2 steps back");
 			take3StepsBack(18);
-		}else if (playerOne.x == playerOnePath[6].x && playerOne.y == playerOnePath[6].y) {
+		} else if (playerOne.x == playerOnePath[6].x && playerOne.y == playerOnePath[6].y) {
 			console.log("Hit a chest");
 			createActionDisplayer("Player 1", "Hit a chest");
 			abilityDecider(6);
-		}else if (playerOne.x == playerOnePath[15].x && playerOne.y == playerOnePath[15].y) {
+		} else if (playerOne.x == playerOnePath[15].x && playerOne.y == playerOnePath[15].y) {
 			console.log("Hit a chest");
 			createActionDisplayer("Player 1", "Hit a chest");
 			abilityDecider(15);
-		}else if (playerOne.x == playerOnePath[26].x && playerOne.y == playerOnePath[26].y) {
+		} else if (playerOne.x == playerOnePath[26].x && playerOne.y == playerOnePath[26].y) {
 			console.log("Hit a chset");
 			createActionDisplayer("Player 1", "Hit a chest");
 			abilityDecider(26);
-		}else {
+		} else {
 			console.log("Hit nothing");
 			switchPlayer();
 		}
-	}else {
+	} else {
 		if (playerTwo.x == playerTwoPath[4].x && playerTwo.y == playerTwoPath[4].y) {
 			console.log("Hit a trap");
 			createActionDisplayer("Player 2", "Hit a trap, move 2 steps back");
 			take3StepsBack(1);
-		}else if (playerTwo.x == playerTwoPath[21].x && playerTwo.y == playerTwoPath[21].y) {
+		} else if (playerTwo.x == playerTwoPath[21].x && playerTwo.y == playerTwoPath[21].y) {
 			console.log("Hit a trap");
 			createActionDisplayer("Player 2", "Hit a trap, move 2 steps back");
 			take3StepsBack(18);
-		}else if (playerTwo.x == playerTwoPath[6].x && playerTwo.y == playerTwoPath[6].y) {
+		} else if (playerTwo.x == playerTwoPath[6].x && playerTwo.y == playerTwoPath[6].y) {
 			console.log("Hit a chest");
 			createActionDisplayer("Player 2", "Hit a chest");
 			abilityDecider(6);
-		}else if (playerTwo.x == playerTwoPath[15].x && playerTwo.y == playerTwoPath[15].y) {
+		} else if (playerTwo.x == playerTwoPath[15].x && playerTwo.y == playerTwoPath[15].y) {
 			console.log("Hit a chest");
 			createActionDisplayer("Player 2", "Hit a chest");
 			abilityDecider(15);
-		}else if (playerTwo.x == playerTwoPath[26].x && playerTwo.y == playerTwoPath[26].y) {
+		} else if (playerTwo.x == playerTwoPath[26].x && playerTwo.y == playerTwoPath[26].y) {
 			console.log("Hit a chset");
 			createActionDisplayer("Player 2", "Hit a chest");
 			abilityDecider(26);
-		}else {
+		} else {
 			console.log("Hit nothing");
 			switchPlayer();
 		}
@@ -378,6 +380,13 @@ function rollTheDice() {
 		clearInterval(diceInterval);
 		rollTime = 0;
 		stepsToTake = rndIndex;
+		
+		if (rndIndex == 6 && playerOneTurn == true) {
+			playerOneGot6 = true;
+		} else if (rndIndex == 6 && playerTwoTurn == true) {
+			playerTwoGot6 = true;
+		}
+		
 		playerOneInterval = setInterval(movePlayer, 1000);
 		//console.log('move with: ' + rndIndex);
 	}
@@ -398,11 +407,18 @@ function switchPlayer() {
 	//console.log("Swithcing player");
 	clearInterval(playerOneInterval);
 	steps = 1;
-	if (playerOneTurn == true) {
+	if (playerOneGot6 == true) {
+		playerOneGot6 = false;
+		canRoll = true;
+		playerTurnDescriptin.innerHTML = "Player 2 rolls again!";
+	} else if (playerOneTurn == true) {
 		playerOneTurn = false;
 		playerTwoTurn = true;
 		canRoll = true;
 		playerTurnDescriptin.innerHTML = "Player 1 your up!";
+	} else if (playerTwoGot6 == true) {
+		canRoll = true;
+		playerTurnDescriptin.innerHTML = "Player 1 rolls again!";
 	} else if (playerTwoTurn == true) {
 		playerOneTurn = true;
 		playerTwoTurn = false;
@@ -466,8 +482,8 @@ function movePlayer() {
 /* --------------------------------------------------- */
 function draw() { // p5js function (runs each fram)
 	background(0);
-	
-	
+
+
 
 	for (let i = 0; i < tileArray.length; i++) {
 		tileArray[i].renderCube();
@@ -488,17 +504,17 @@ function draw() { // p5js function (runs each fram)
 	for (let i = 0; i < abilityChests.length; i++) {
 		abilityChests[i].renderChest();
 	}
-	
+
 	image(levelBG, 0, 0, canvasW, canvasH);
 
 	playerOne.renderPlayer();
 	playerTwo.renderPlayer();
 	//console.log("Player One: " + playerOneTurn);
 	//console.log("Player Two: " + playerTwoTurn);
-	
-	
-	
-	
+
+
+
+
 
 }
 
@@ -567,27 +583,27 @@ class PlayerOne {
 		this.height = height;
 		this.count = 0;
 	}
-	
+
 	setup() {
 		if (param.playerOne == 1) {
 			playerOneImg1 = loadImage("imgs/GameAssets/Tokens/Tyrion_Lannister_Token.png");
-		}else if (param.playerOne == 2) {
+		} else if (param.playerOne == 2) {
 			playerOneImg1 = loadImage("imgs/GameAssets/Tokens/Daenerys_Targaryen_Token.png");
-		}else if ( param.playerOne == 3) {
+		} else if (param.playerOne == 3) {
 			playerOneImg1 = loadImage("imgs/GameAssets/Tokens/Cersei_Lannister_Token.png");
-		}else if ( param.playerOne == 4) {
+		} else if (param.playerOne == 4) {
 			playerOneImg1 = loadImage("imgs/GameAssets/Tokens/Jon_Snow_Token.png");
-		}else if ( param.playerOne == 5) {
+		} else if (param.playerOne == 5) {
 			playerOneImg1 = loadImage("imgs/GameAssets/Tokens/Sansa_Start_Token.png");
-		}else if ( param.playerOne == 6) {
+		} else if (param.playerOne == 6) {
 			playerOneImg1 = loadImage("imgs/GameAssets/Tokens/Ramsay_Snow_Token.png");
-		}else if ( param.playerOne == 7) {
+		} else if (param.playerOne == 7) {
 			playerOneImg1 = loadImage("imgs/GameAssets/Tokens/Eddard_Start_Token.png");
-		}else if ( param.playerOne == 8) {
+		} else if (param.playerOne == 8) {
 			playerOneImg1 = loadImage("imgs/GameAssets/Tokens/Cersei_Lannister_Token.png");
-		}else if ( param.playerOne == 9) {
+		} else if (param.playerOne == 9) {
 			playerOneImg1 = loadImage("imgs/GameAssets/Tokens/Tyrwin_Lannister_Token.png");
-		}else if ( param.playerOne == 10) {
+		} else if (param.playerOne == 10) {
 			playerOneImg1 = loadImage("imgs/GameAssets/Tokens/Joffrey_Baratheon_Token.png");
 		}
 	}
@@ -609,27 +625,27 @@ class PlayerTwo {
 		this.width = width;
 		this.height = height;
 	}
-	
+
 	setup() {
 		if (param.playerTwo == 1) {
 			playerTwoImg1 = loadImage("imgs/GameAssets/Tokens/Tyrion_Lannister_Token.png");
-		}else if (param.playerTwo == 2) {
+		} else if (param.playerTwo == 2) {
 			playerTwoImg1 = loadImage("imgs/GameAssets/Tokens/Daenerys_Targaryen_Token.png");
-		}else if ( param.playerTwo == 3) {
+		} else if (param.playerTwo == 3) {
 			playerTwoImg1 = loadImage("imgs/GameAssets/Tokens/Cersei_Lannister_Token.png");
-		}else if ( param.playerTwo == 4) {
+		} else if (param.playerTwo == 4) {
 			playerTwoImg1 = loadImage("imgs/GameAssets/Tokens/Jon_Snow_Token.png");
-		}else if ( param.playerTwo == 5) {
+		} else if (param.playerTwo == 5) {
 			playerTwoImg1 = loadImage("imgs/GameAssets/Tokens/Sansa_Start_Token.png");
-		}else if ( param.playerTwo == 6) {
+		} else if (param.playerTwo == 6) {
 			playerTwoImg1 = loadImage("imgs/GameAssets/Tokens/Ramsay_Snow_Token.png");
-		}else if ( param.playerTwo == 7) {
+		} else if (param.playerTwo == 7) {
 			playerTwoImg1 = loadImage("imgs/GameAssets/Tokens/Eddard_Start_Token.png");
-		}else if ( param.playerTwo == 8) {
+		} else if (param.playerTwo == 8) {
 			playerTwoImg1 = loadImage("imgs/GameAssets/Tokens/Cersei_Lannister_Token.png");
-		}else if ( param.playerTwo == 9) {
+		} else if (param.playerTwo == 9) {
 			playerTwoImg1 = loadImage("imgs/GameAssets/Tokens/Tyrwin_Lannister_Token.png");
-		}else if ( param.playerTwo == 10) {
+		} else if (param.playerTwo == 10) {
 			playerTwoImg1 = loadImage("imgs/GameAssets/Tokens/Joffrey_Baratheon_Token.png");
 		}
 	}
