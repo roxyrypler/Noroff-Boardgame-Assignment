@@ -228,12 +228,12 @@ function abilityDecider(pathindex) {
 				playerOne.x = playerOnePath[pathindex + 2].x;
 				playerOne.y = playerOnePath[pathindex + 2].y;
 				playerOneCount = playerOneCount + 2;
-				createActionDisplayer("Player 1", "Move 2 steps forword");
+				createActionDisplayer("Player 2", "Move 2 steps forword");
 			} else {
 				playerTwo.x = playerTwoPath[pathindex + 2].x;
 				playerTwo.y = playerTwoPath[pathindex + 2].y;
 				playerTwoCount = playerTwoCount + 2;
-				createActionDisplayer("Player 2", "Move 2 steps forword");
+				createActionDisplayer("Player 1", "Move 2 steps forword");
 			}
 			break;
 		case 2:
@@ -243,12 +243,12 @@ function abilityDecider(pathindex) {
 				playerOne.x = playerOnePath[pathindex - 2].x;
 				playerOne.y = playerOnePath[pathindex - 2].y;
 				playerOneCount = playerOneCount - 2;
-				createActionDisplayer("Player 1", "Move 2 steps backwords");
+				createActionDisplayer("Player 2", "Move 2 steps backwords");
 			} else {
 				playerTwo.x = playerTwoPath[pathindex - 2].x;
 				playerTwo.y = playerTwoPath[pathindex - 2].y;
 				playerTwoCount = playerTwoCount - 2;
-				createActionDisplayer("Player 2", "Move 2 steps backwords");
+				createActionDisplayer("Player 1", "Move 2 steps backwords");
 			}
 			break;
 		case 3:
@@ -258,12 +258,12 @@ function abilityDecider(pathindex) {
 				playerOne.x = playerOnePath[pathindex + 4].x;
 				playerOne.y = playerOnePath[pathindex + 4].y;
 				playerOneCount = playerOneCount + 4;
-				createActionDisplayer("Player 1", "Move 4 steps forword");
+				createActionDisplayer("Player 2", "Move 4 steps forword");
 			} else {
 				playerTwo.x = playerTwoPath[pathindex + 4].x;
 				playerTwo.y = playerTwoPath[pathindex + 4].y;
 				playerTwoCount = playerTwoCount + 4;
-				createActionDisplayer("Player 2", "Move 4 steps forword");
+				createActionDisplayer("Player 1", "Move 4 steps forword");
 			}
 			break;
 		case 4:
@@ -278,7 +278,7 @@ function abilityDecider(pathindex) {
 				playerTwo.x = playerTwoPath[pathindex - 4].x;
 				playerTwo.y = playerTwoPath[pathindex - 4].y;
 				playerTwoCount = playerTwoCount - 4;
-				createActionDisplayer("Player 2", "Move 4 steps backwords");
+				createActionDisplayer("Player 1", "Move 4 steps backwords");
 			}
 			break;
 		default:
@@ -293,23 +293,23 @@ function landedOnSOmething() {
 	if (playerOneTurn == true) {
 		if (playerOne.x == playerOnePath[4].x && playerOne.y == playerOnePath[4].y) {
 			console.log("Hit a trap");
-			createActionDisplayer("Player 1", "Hit a trap, move 2 steps back");
+			createActionDisplayer("Player 2", "Hit a trap, move 3 steps back");
 			take3StepsBack(1);
 		} else if (playerOne.x == playerOnePath[21].x && playerOne.y == playerOnePath[21].y) {
 			console.log("Hit a trap");
-			createActionDisplayer("Player 1", "Hit a trap, move 2 steps back");
+			createActionDisplayer("Player 2", "Hit a trap, move 3 steps back");
 			take3StepsBack(18);
 		} else if (playerOne.x == playerOnePath[6].x && playerOne.y == playerOnePath[6].y) {
 			console.log("Hit a chest");
-			createActionDisplayer("Player 1", "Hit a chest");
+			createActionDisplayer("Player 2", "Hit a chest");
 			abilityDecider(6);
 		} else if (playerOne.x == playerOnePath[15].x && playerOne.y == playerOnePath[15].y) {
 			console.log("Hit a chest");
-			createActionDisplayer("Player 1", "Hit a chest");
+			createActionDisplayer("Player 2", "Hit a chest");
 			abilityDecider(15);
 		} else if (playerOne.x == playerOnePath[26].x && playerOne.y == playerOnePath[26].y) {
 			console.log("Hit a chset");
-			createActionDisplayer("Player 1", "Hit a chest");
+			createActionDisplayer("Player 2", "Hit a chest");
 			abilityDecider(26);
 		} else {
 			console.log("Hit nothing");
@@ -318,23 +318,23 @@ function landedOnSOmething() {
 	} else {
 		if (playerTwo.x == playerTwoPath[4].x && playerTwo.y == playerTwoPath[4].y) {
 			console.log("Hit a trap");
-			createActionDisplayer("Player 2", "Hit a trap, move 2 steps back");
+			createActionDisplayer("Player 1", "Hit a trap, move 3 steps back");
 			take3StepsBack(1);
 		} else if (playerTwo.x == playerTwoPath[21].x && playerTwo.y == playerTwoPath[21].y) {
 			console.log("Hit a trap");
-			createActionDisplayer("Player 2", "Hit a trap, move 2 steps back");
+			createActionDisplayer("Player 1", "Hit a trap, move 3 steps back");
 			take3StepsBack(18);
 		} else if (playerTwo.x == playerTwoPath[6].x && playerTwo.y == playerTwoPath[6].y) {
 			console.log("Hit a chest");
-			createActionDisplayer("Player 2", "Hit a chest");
+			createActionDisplayer("Player 1", "Hit a chest");
 			abilityDecider(6);
 		} else if (playerTwo.x == playerTwoPath[15].x && playerTwo.y == playerTwoPath[15].y) {
 			console.log("Hit a chest");
-			createActionDisplayer("Player 2", "Hit a chest");
+			createActionDisplayer("Player 1", "Hit a chest");
 			abilityDecider(15);
 		} else if (playerTwo.x == playerTwoPath[26].x && playerTwo.y == playerTwoPath[26].y) {
 			console.log("Hit a chset");
-			createActionDisplayer("Player 2", "Hit a chest");
+			createActionDisplayer("Player 1", "Hit a chest");
 			abilityDecider(26);
 		} else {
 			console.log("Hit nothing");
@@ -371,7 +371,7 @@ function InitializeDiceRolling() {
 function rollTheDice() {
 	if (rollTime <= 50) {
 		rollTime += 1;
-		rndIndex = floor(random(1, 7));
+		rndIndex = floor(random(6, 7));
 		diceDiv.background = diceFaces[rndIndex];
 		diceDiv.backgroundPosition = ("center center");
 		diceDiv.backgroundRepeat = ("no-repeat");
@@ -417,6 +417,7 @@ function switchPlayer() {
 		canRoll = true;
 		playerTurnDescriptin.innerHTML = "Player 1 your up!";
 	} else if (playerTwoGot6 == true) {
+		playerTwoGot6 = false;
 		canRoll = true;
 		playerTurnDescriptin.innerHTML = "Player 1 rolls again!";
 	} else if (playerTwoTurn == true) {
@@ -452,6 +453,7 @@ function movePlayer() {
 			clearInterval(playerOneInterval);
 			steps = 1;
 			console.log(e);
+			window.open("winner.html?playerWon=2&char=" + param.playerTwo, "_self");
 		}
 	} else if (playerTwoTurn == true) {
 		try {
@@ -473,6 +475,7 @@ function movePlayer() {
 			clearInterval(playerOneInterval);
 			steps = 1;
 			console.log(e);
+			window.open("winner.html?playerWon=1&char=" + param.playerOne, "_self");
 		}
 	}
 }

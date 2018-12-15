@@ -91,7 +91,12 @@ function settingNames() {
 
 let startGameHref = document.getElementById("startGame");
 	startGameHref.addEventListener("click", () => {
-		window.open ("index.html?&playerOne=" + playerOneSelect + "&playerTwo=" + playerTwoSelect,"_self");
+		// both player one and player two must be selected before the user can proceed.
+		if (playerOneSelect > 0 && playerTwoSelect > 0) {
+			window.open ("index.html?&playerOne=" + playerOneSelect + "&playerTwo=" + playerTwoSelect,"_self");
+		}else {
+			alert("Player One and Player two must have a character selected");
+		}
 	})
 
 

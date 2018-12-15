@@ -8,6 +8,7 @@ body {
   width: 100vW;
   height: 100vH;
   overflow: hidden;
+  font-family: 'Indie Flower', cursive;
 }
 .dice {
   width: 100px;
@@ -25,11 +26,14 @@ body {
 .activityHolder {
   width: 300px;
   height: 500px;
-  background-color: #fff;
+  background-color: rgba(255,255,255,0.5);
   position: absolute;
   left: 250px;
   top: 15%;
   overflow: scroll;
+  overflow-x: hidden;
+  padding-right: 10px;
+  padding-left: 10px;
 }
 .rollDice {
   width: 100px;
@@ -38,6 +42,8 @@ body {
   position: absolute;
   left: 10%;
   top: 50%;
+  background-color: #964448;
+  border: 0px;
 }
 .playerState {
   position: absolute;
@@ -51,10 +57,10 @@ body {
   font-size: 20px;
 }
 .actions {
-  font-size: 15px;
+  font-size: 20px;
 }
 .separator {
   width: 100%;
   height: 10px;
-  background-color: #000;
+  background-color: rgba(0,0,0,0.5);
 }
