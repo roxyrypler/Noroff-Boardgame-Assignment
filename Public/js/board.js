@@ -371,7 +371,7 @@ function InitializeDiceRolling() {
 function rollTheDice() {
 	if (rollTime <= 50) {
 		rollTime += 1;
-		rndIndex = floor(random(6, 7));
+		rndIndex = floor(random(1, 7));
 		diceDiv.background = diceFaces[rndIndex];
 		diceDiv.backgroundPosition = ("center center");
 		diceDiv.backgroundRepeat = ("no-repeat");
